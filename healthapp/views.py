@@ -1,8 +1,9 @@
+from unittest import result
 from django.http import HttpResponse
 from django.shortcuts import render
 from datetime import datetime
 import plotly.express as px
-
+import json
 # https://industrial.api.ubidots.com/api/v1.6/devices/esp32/var/values/?page_size=10&token=BBFF-Bfw8lO95m9pzKw8zE0Zupzw5OrKDQ0
 import requests
 
@@ -34,14 +35,23 @@ def gettemp(request):
     url="https://industrial.api.ubidots.com/api/v1.6/devices/esp32/temp/values/"
     params={"page_size":1,"token":"BBFF-Bfw8lO95m9pzKw8zE0Zupzw5OrKDQ0"}
     r = requests.get(url = url, params = params)
-    return HttpResponse(r,content_type="application/json")
+    data = r.json()
+    value=data['results'][0]['value']
+    data=json.dumps({"value":value})
+    return HttpResponse(data,content_type="application/json")
 def getpulse(request):
     url="https://industrial.api.ubidots.com/api/v1.6/devices/esp32/bpm/values/"
     params={"page_size":1,"token":"BBFF-Bfw8lO95m9pzKw8zE0Zupzw5OrKDQ0"}
     r = requests.get(url = url, params = params)
-    return HttpResponse(r,content_type="application/json")
+    data = r.json()
+    value=data['results'][0]['value']
+    data=json.dumps({"value":value})
+    return HttpResponse(data,content_type="application/json")
 def getspo2(request):
     url="https://industrial.api.ubidots.com/api/v1.6/devices/esp32/spo2/values/"
     params={"page_size":1,"token":"BBFF-Bfw8lO95m9pzKw8zE0Zupzw5OrKDQ0"}
     r = requests.get(url = url, params = params)
-    return HttpResponse(r,content_type="application/json")
+    data = r.json()
+    value=data['results'][0]['value']
+    data=json.dumps({"value":value})
+    return HttpResponse(data,content_type="application/json")
