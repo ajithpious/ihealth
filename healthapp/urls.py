@@ -1,8 +1,9 @@
-from .views import home, patient, patients
+from .views import getdata, home, patient, patients
 from django.urls import path
 
 
 urlpatterns = [ path('',home),
 path("patients",patients),
-path("patient1",patient)
+path("patient1",patient),
+path("getdata",getdata)
 ]
